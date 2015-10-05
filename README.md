@@ -1,7 +1,6 @@
 # ansibleCVSworkflow
 
 This tool can commit and update specified file to CVS Repository.
-
 Optional feature: run command after update
 
 Examples:
