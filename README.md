@@ -5,9 +5,9 @@ Optional feature: run command after update
 
 Examples:
 - Run command after cvs update in nng group
-  ```
+```
   ansible-playbook --extra-vars "file=named.conf servers=nng destination=/etc/bind cvsdir=~/work/wcfg command='ls -all'" site.yml
-  ```
+```
 - Only update remote files in barack, brian
 ```
   ansible-playbook --extra-vars "file=named.conf servers=barack;brian destination=/etc/bind cvsdir=~/work/wcfg" site.yml
