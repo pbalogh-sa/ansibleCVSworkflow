@@ -1,0 +1,38 @@
+---
+- hosts: '{{ servers }}'
+  gather_facts: no
+  remote_user: root
+  tasks:
+    - slurp: src={{ destination }}/CVS/Repository
+      register: repo
+    - set_fact: customrepo='{{ repo.content | b64decode | regex_replace('\n', '') }}'
+    - debug: msg='CVS Repositry {{ customrepo }}'
+    - name: CVS localupdate
+      local_action: shell chdir={{ cvsdir }}/{{ customrepo }} cvs -q update {{ file }}
+      ignore_errors: yes
+      tags:
+        - cvslocalupdate
+    - local_action: stat path='{{ cvsdir }}/{{ customrepo }}/{{ file }}'
+      register: file_stat
+    - name: copy file to local cvsdir
+      local_action: copy src={{ file }} dest={{ cvsdir }}/{{ customrepo }}
+    - name: add file to cvs
+      local_action: shell chdir={{ cvsdir }}/{{ customrepo }} cvs add {{ filename }}
+      ignore_errors: yes
+      when: file_stat.stat.exists == False
+      tags:
+        - cvscommit
+    - name: CVS commit
+      local_action: shell chdir={{ cvsdir }}/{{ customrepo }} cvs -q commit -m "Ansible commit pb/ansible_simple_tool" {{ file }}
+      tags:
+        - cvscommit
+    - name: etc cvs update on remote
+      shell: chdir={{ destination }} cvs -q update {{ file }}
+      tags:
+        - cvsupdate
+    - name: run command on remote
+      shell: '{{ command }}'
+      register: output
+      when: command is defined
+    - debug: var=output.stdout_lines
+      when: command is defined
