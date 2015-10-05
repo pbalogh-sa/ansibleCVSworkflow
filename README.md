@@ -6,11 +6,11 @@ Optional feature: run command after update
 Examples:
 - Run command after cvs update in groupname group
 ```
-  ansible-playbook --extra-vars "file=named.conf servers=groupname destination=/etc/bind cvsdir=~/work/wcfg command='ls -all'" site.yml
+  ansible-playbook --extra-vars "file=named.conf servers=groupname destination=/etc/bind cvsdir=~/cvsworkdir command='ls -all'" site.yml
 ```
 - Only update remote files in hist1, host2
 ```
-  ansible-playbook --extra-vars "file=named.conf servers=host1;host2 destination=/etc/bind cvsdir=~/work/wcfg" site.yml
+  ansible-playbook --extra-vars "file=named.conf servers=host1;host2 destination=/etc/bind cvsdir=~/cvsworkdir" site.yml
 ```
 Where:
   - file: filename on local (this will be copied to local CVS for commit and update on remote)
