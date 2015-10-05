@@ -4,13 +4,13 @@ This tool can commit and update specified file to CVS Repository.
 Optional feature: run command after update
 
 Examples:
-- Run command after cvs update in nng group
+- Run command after cvs update in groupname group
 ```
-  ansible-playbook --extra-vars "file=named.conf servers=nng destination=/etc/bind cvsdir=~/work/wcfg command='ls -all'" site.yml
+  ansible-playbook --extra-vars "file=named.conf servers=groupname destination=/etc/bind cvsdir=~/work/wcfg command='ls -all'" site.yml
 ```
-- Only update remote files in barack, brian
+- Only update remote files in hist1, host2
 ```
-  ansible-playbook --extra-vars "file=named.conf servers=barack;brian destination=/etc/bind cvsdir=~/work/wcfg" site.yml
+  ansible-playbook --extra-vars "file=named.conf servers=host1;host2 destination=/etc/bind cvsdir=~/work/wcfg" site.yml
 ```
 Where:
   - file: filename on local (this will be copied to local CVS for commit and update on remote)
