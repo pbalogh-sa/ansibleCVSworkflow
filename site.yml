@@ -23,7 +23,7 @@
       tags:
         - cvscommit
     - name: CVS commit
-      local_action: shell chdir={{ cvsdir }}/{{ customrepo }} cvs -q commit -m "Ansible commit pb/ansible_simple_tool" {{ file }}
+      local_action: shell chdir={{ cvsdir }}/{{ customrepo }} cvs -q commit -m "Ansible commit" {{ file }}
       tags:
         - cvscommit
     - name: etc cvs update on remote
